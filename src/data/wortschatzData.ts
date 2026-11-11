@@ -1,0 +1,297 @@
+import { VocabularyItem } from '../types';
+
+export const WORTSCHATZ_DATA: VocabularyItem[] = [
+  // ================= ARBEIT UND BERUF =================
+  {
+    id: 'w-beruf-1',
+    word: 'Ausbildung',
+    article: 'die',
+    plural: '-en',
+    partOfSpeech: 'Nomen',
+    translationAr: 'تدريب مهني / تأهيل',
+    exampleDe: 'Nach dem Abitur begann sie eine dreijährige Ausbildung zur Bürokauffrau.',
+    exampleAr: 'بعد حصولها على الثانوية العامة، بدأت تدريباً مهنياً لمدة ثلاث سنوات كموظفة مكتبية.',
+    collocations: ['eine Ausbildung machen', 'eine Ausbildung abschließen'],
+    theme: 'Arbeit und Beruf',
+    difficulty: 'B1 Hard',
+    source: 'So geht\'s noch besser, S. 148'
+  },
+  {
+    id: 'w-beruf-2',
+    word: 'sich bewerben',
+    partOfSpeech: 'Verb',
+    translationAr: 'يتقدم بطلب توظيف / يترشح',
+    exampleDe: 'Er hat sich um eine interessante Arbeitsstelle bei der Bank beworben.',
+    exampleAr: 'لقد تقدم بطلب توظيف لشغل وظيفة شاغرة ومثيرة للاهتمام في البنك.',
+    preposition: 'um + Akkusativ / bei + Dativ',
+    synonyms: ['einen Antrag stellen', 'kandidieren'],
+    collocations: ['Bewerbungsunterlagen einreichen'],
+    theme: 'Arbeit und Beruf',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1, S. 204'
+  },
+  {
+    id: 'w-beruf-3',
+    word: 'Arbeitsverhältnis',
+    article: 'das',
+    plural: '-se',
+    partOfSpeech: 'Nomen',
+    translationAr: 'علاقة عمل / عقد عمل قانوني',
+    exampleDe: 'Ein unbefristetes Arbeitsverhältnis bietet finanzielle Sicherheit.',
+    exampleAr: 'عقد العمل غير المحدد بمدة يوفر أماناً واستقراراً مالياً.',
+    collocations: ['ein Arbeitsverhältnis auflösen', 'ein festes Arbeitsverhältnis'],
+    theme: 'Arbeit und Beruf',
+    difficulty: 'B1 Hard',
+    source: 'Zertifikat B1 neu, Test 8'
+  },
+  {
+    id: 'w-beruf-4',
+    word: 'kündigen',
+    partOfSpeech: 'Verb',
+    translationAr: 'يستقيل / ينهي العقد / يفصل من العمل',
+    exampleDe: 'Sie hat ihre Stelle gekündigt, um sich selbstständig zu machen.',
+    exampleAr: 'لقد قدمت استقالتها من وظيفتها لتبدأ عملاً حراً مستقلاً.',
+    preposition: 'jemandem kündigen (Dativ) / den Vertrag kündigen (Akk)',
+    theme: 'Arbeit und Beruf',
+    difficulty: 'B1 Hard',
+    source: 'So geht\'s noch besser, S. 159'
+  },
+  {
+    id: 'w-beruf-5',
+    word: 'Aufstiegschance',
+    article: 'die',
+    plural: '-n',
+    partOfSpeech: 'Nomen',
+    translationAr: 'فرصة الترقية والتطور المهني',
+    exampleDe: 'In diesem internationalen Unternehmen gibt es hervorragende Aufstiegschancen.',
+    exampleAr: 'في هذه الشركة الدولية تتوفر فرص ممتازة للترقي الوظيفي.',
+    synonyms: ['Karrieremöglichkeit'],
+    theme: 'Arbeit und Beruf',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1'
+  },
+
+  // ================= UMWELT UND KLIMASCHUTZ =================
+  {
+    id: 'w-umwelt-1',
+    word: 'Nachhaltigkeit',
+    article: 'die',
+    plural: 'nur Sg.',
+    partOfSpeech: 'Nomen',
+    translationAr: 'الاستدامة البيئية',
+    exampleDe: 'Nachhaltigkeit im Alltag bedeutet, Ressourcen schonend zu verbrauchen.',
+    exampleAr: 'الاستدامة في الحياة اليومية تعني استهلاك الموارد الطبيعية بحرص وتوفير.',
+    collocations: ['Wert auf Nachhaltigkeit legen', 'nachhaltig wirtschaften'],
+    theme: 'Umwelt und Klimaschutz',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1, S. 67'
+  },
+  {
+    id: 'w-umwelt-2',
+    word: 'erneuerbare Energien',
+    article: 'die',
+    plural: 'Pl.',
+    partOfSpeech: 'Nomen',
+    translationAr: 'الطاقات المتجددة',
+    exampleDe: 'Wind- und Sonnenenergie sind saubere, erneuerbare Energien.',
+    exampleAr: 'طاقة الرياح والطاقة الشمسية من الطاقات النظيفة والمتجددة.',
+    collocations: ['erneuerbare Energien ausbauen/fördern'],
+    theme: 'Umwelt und Klimaschutz',
+    difficulty: 'B1 Hard',
+    source: 'So geht\'s noch besser, S. 94'
+  },
+  {
+    id: 'w-umwelt-3',
+    word: 'Mülltrennung',
+    article: 'die',
+    plural: '-en',
+    partOfSpeech: 'Nomen',
+    translationAr: 'فرز القمامة وإعادة التدوير',
+    exampleDe: 'Eine genaue Mülltrennung ist in Deutschland und Österreich gesetzlich vorgeschrieben.',
+    exampleAr: 'فرز النفايات الدقيق منصوص عليه قانونياً في ألمانيا والنمسا.',
+    collocations: ['den Müll sorgfältig trennen'],
+    theme: 'Umwelt und Klimaschutz',
+    difficulty: 'B1 Hard',
+    source: 'Zertifikat B1 neu, Test 13'
+  },
+  {
+    id: 'w-umwelt-4',
+    word: 'überfischen',
+    partOfSpeech: 'Verb',
+    translationAr: 'الصيد الجائر للأسماك',
+    exampleDe: 'Wenn wir die Weltmeere überfischen, gerät das ökologische Gleichgewicht in Gefahr.',
+    exampleAr: 'إذا مارسنا الصيد الجائر في المحيطات، سيتعرض التوازن البيئي للخطر الشديد.',
+    synonyms: ['die Meere ausbeuten'],
+    theme: 'Umwelt und Klimaschutz',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1, S. 114'
+  },
+
+  // ================= GESUNDHEIT UND ERNÄHRUNG =================
+  {
+    id: 'w-gesund-1',
+    word: 'ausgewogen',
+    partOfSpeech: 'Adjektiv',
+    translationAr: 'متوازن / معتدل',
+    exampleDe: 'Eine ausgewogene Ernährung mit viel Gemüse schützt vor Krankheiten.',
+    exampleAr: 'النظام الغذائي المتوازن الغني بالخضراوات يحمي من الأمراض.',
+    collocations: ['ausgewogene Ernährung', 'ausgewogener Lebensstil'],
+    theme: 'Gesundheit',
+    difficulty: 'B1 Hard',
+    source: 'Zertifikat B1 neu, Test 13'
+  },
+  {
+    id: 'w-gesund-2',
+    word: 'Nebenwirkung',
+    article: 'die',
+    plural: '-en',
+    partOfSpeech: 'Nomen',
+    translationAr: 'أثر جانبي (لدواء أو علاج)',
+    exampleDe: 'Lesen Sie vor der Einnahme des Medikaments den Beipackzettel bezüglich möglicher Nebenwirkungen.',
+    exampleAr: 'اقرأ النشرة الطبية المرفقة قبل تناول الدواء للتعرف على الآثار الجانبية المحتملة.',
+    collocations: ['unerwünschte Nebenwirkungen hervorrufen'],
+    theme: 'Gesundheit',
+    difficulty: 'B1 Hard',
+    source: 'So geht\'s noch besser, S. 127'
+  },
+  {
+    id: 'w-gesund-3',
+    word: 'vorbeugen',
+    partOfSpeech: 'Verb',
+    translationAr: 'يقي من / يمنع حدوث',
+    exampleDe: 'Regelmäßige Bewegung beugt Rückenbeschwerden und Herzproblemen vor.',
+    exampleAr: 'الحركة البدنية المنتظمة تقي من آلام الظهر ومشاكل القلب.',
+    preposition: 'vorbeugen + Dativ',
+    synonyms: ['verhindern', 'vermeiden'],
+    theme: 'Gesundheit',
+    difficulty: 'B1 Hard',
+    source: 'Zertifikat B1 neu'
+  },
+
+  // ================= MEDIEN UND TECHNOLOGIE =================
+  {
+    id: 'w-medien-1',
+    word: 'Datenschutz',
+    article: 'der',
+    plural: 'nur Sg.',
+    partOfSpeech: 'Nomen',
+    translationAr: 'حماية البيانات والخصوصية الرقمية',
+    exampleDe: 'In sozialen Netzwerken sollte man stets auf den Schutz seiner persönlichen Daten achten.',
+    exampleAr: 'في شبكات التواصل الاجتماعي، ينبغي للمرء دوماً الانتباه إلى حماية بياناته الشخصية.',
+    collocations: ['die Datenschutzbestimmungen beachten'],
+    theme: 'Medien und Technologie',
+    difficulty: 'B1 Hard',
+    source: 'So geht\'s noch besser, S. 92'
+  },
+  {
+    id: 'w-medien-2',
+    word: 'Zugriff',
+    article: 'der',
+    plural: '-e',
+    partOfSpeech: 'Nomen',
+    translationAr: 'صلاحية وصول / دخول إلى بيانات',
+    exampleDe: 'Verwenden Sie sichere Passwörter, damit Unbefugte keinen Zugriff auf Ihr Konto erhalten.',
+    exampleAr: 'استخدم كلمات مرور قوية حتى لا يحصل الغرباء على وصول لحسابك.',
+    preposition: 'Zugriff auf + Akkusativ haben',
+    theme: 'Medien und Technologie',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1, S. 119'
+  },
+  {
+    id: 'w-medien-3',
+    word: 'Cybermobbing',
+    article: 'das',
+    plural: 'nur Sg.',
+    partOfSpeech: 'Nomen',
+    translationAr: 'التنمر الإلكتروني عبر الإنترنت',
+    exampleDe: 'Cybermobbing an Schulen kann die psychische Gesundheit der Schüler massiv belasten.',
+    exampleAr: 'التنمر الإلكتروني في المدارس قد يثقل كاهل الصحة النفسية للطلاب بشدة.',
+    collocations: ['Opfer von Cybermobbing werden'],
+    theme: 'Medien und Technologie',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1, S. 125'
+  },
+
+  // ================= REISEN UND VERKEHR =================
+  {
+    id: 'w-reisen-1',
+    word: 'Sehenswürdigkeit',
+    article: 'die',
+    plural: '-en',
+    partOfSpeech: 'Nomen',
+    translationAr: 'معلم سياحي / مكان أثري جذاب',
+    exampleDe: 'Das Schloss Schönbrunn ist die meistbesuchte Sehenswürdigkeit in Wien.',
+    exampleAr: 'قصر شونبرون هو المعلم السياحي الأكثر زيارة في فيينا.',
+    collocations: ['Sehenswürdigkeiten besichtigen'],
+    theme: 'Reisen und Urlaub',
+    difficulty: 'B1 Hard',
+    source: 'Zertifikat B1 neu, Test 6'
+  },
+  {
+    id: 'w-reisen-2',
+    word: 'Verzögerung',
+    article: 'die',
+    plural: '-en',
+    partOfSpeech: 'Nomen',
+    translationAr: 'تأخير / تعطيل في الوقت',
+    exampleDe: 'Aufgrund von Gleisarbeiten kommt es beim Zugverkehr zu erheblichen Verzögerungen.',
+    exampleAr: 'نظراً لأعمال صيانة السكك الحديدية يطرأ تأخير معتبر على حركة القطارات.',
+    synonyms: ['Verspätung'],
+    theme: 'Verkehr',
+    difficulty: 'B1 Hard',
+    source: 'So geht\'s noch besser, S. 165'
+  },
+  {
+    id: 'w-reisen-3',
+    word: 'überqueren',
+    partOfSpeech: 'Verb',
+    translationAr: 'يعبر / يقطع (الشارع أو الحدود)',
+    exampleDe: 'Fußgänger sollten die Straße nur an den dafür vorgesehenen Zebrastreifen überqueren.',
+    exampleAr: 'يجب على المشاة عبور الشارع فقط عند خطوط عبور المشاة المخصصة لذلك.',
+    theme: 'Verkehr',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1'
+  },
+
+  // ================= WOHNEN UND GESELLSCHAFT =================
+  {
+    id: 'w-wohnen-1',
+    word: 'Wohngemeinschaft (WG)',
+    article: 'die',
+    plural: '-en',
+    partOfSpeech: 'Nomen',
+    translationAr: 'سكن طلابي مشترك',
+    exampleDe: 'Viele Studierende in Deutschland teilen sich eine Wohnung in einer WG, um Miete zu sparen.',
+    exampleAr: 'العديد من الطلاب في ألمانيا يتشاركون شقة سكنية لتوفير تكاليف الإيجار.',
+    collocations: ['in einer WG wohnen', 'ein Zimmer in einer WG mieten'],
+    theme: 'Wohnen',
+    difficulty: 'B1 Hard',
+    source: 'Zertifikat B1 neu, Test 10'
+  },
+  {
+    id: 'w-wohnen-2',
+    word: 'Nebenkosten',
+    article: 'die',
+    plural: 'Pl.',
+    partOfSpeech: 'Nomen',
+    translationAr: 'المصاريف الإضافية للشقة (تدفئة، ماء، نظافة)',
+    exampleDe: 'Die Warmmiete setzt sich aus der Kaltmiete und den monatlichen Nebenkosten zusammen.',
+    exampleAr: 'يتكون الإيجار الشامل من الإيجار الصافي والمصاريف الإضافية الشهرية.',
+    collocations: ['Nebenkosten abrechnen', 'hohe Nebenkosten'],
+    theme: 'Wohnen',
+    difficulty: 'B1 Hard',
+    source: 'So geht\'s noch besser, S. 87'
+  },
+  {
+    id: 'w-gesell-1',
+    word: 'ehrenamtlich',
+    partOfSpeech: 'Adjektiv',
+    translationAr: 'تطوعي / بلا مقابل مادي',
+    exampleDe: 'Sie engagiert sich seit Jahren ehrenamtlich im örtlichen Tierschutzverein.',
+    exampleAr: 'تنشط منذ سنوات بشكل تطوعي في جمعية حماية الحيوان المحلية.',
+    collocations: ['ehrenamtlich tätig sein', 'ein Ehrenamt ausüben'],
+    theme: 'Gesellschaft',
+    difficulty: 'B1 Hard',
+    source: 'Arena B1, S. 92'
+  }
+];

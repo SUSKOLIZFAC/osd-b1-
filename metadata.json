@@ -1,0 +1,6 @@
+{
+  "name": "ÖSD B1 Hard – Deutsch ↔ العربية",
+  "description": "Intensive Prüfungsvorbereitung für das ÖSD Zertifikat B1 (ZB1) – zweisprachig Deutsch & Arabisch mit authentischen Modelltests, Hörverstehen mit Audio, KI-Schreibkorrektur, KI-Sprechprüfung und Grammatikzentrum.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
