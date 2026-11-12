@@ -37,6 +37,10 @@ export const LesenView: React.FC<LesenViewProps> = ({ language }) => {
   const [highlightedText, setHighlightedText] = useState<string | null>(null);
   const [activeExplanationId, setActiveExplanationId] = useState<number | null>(null);
 
+  // Mobile specific: switch between reading text and questions
+  const [mobileTab, setMobileTab] = useState<'text' | 'questions' | 'both'>('text');
+  const [fontSize, setFontSize] = useState<'normal' | 'large'>('normal');
+
   // Filter sets for current Teil
   const currentTeilSets = ALL_LESEN_SETS.filter((s) => s.teil === activeTeil);
   const currentSet: LesenTeilSet = currentTeilSets[selectedSetIndex] || currentTeilSets[0];
@@ -247,10 +251,47 @@ export const LesenView: React.FC<LesenViewProps> = ({ language }) => {
         </div>
       </div>
 
+      {/* Mobile-only Segmented View Selector */}
+      <div className="lg:hidden flex items-center bg-slate-200/80 p-1 rounded-2xl text-xs font-bold w-full shadow-inner">
+        <button
+          onClick={() => setMobileTab('text')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'text' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <BookOpen className="w-3.5 h-3.5" />
+          <span>{isAr ? 'نص القراءة' : 'Lesetext'}</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('questions')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'questions' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <CheckCircle2 className="w-3.5 h-3.5" />
+          <span>{isAr ? 'الأسئلة' : 'Fragen'}</span>
+          <span className="px-1.5 py-0.2 rounded-full bg-slate-100 text-[10px]">
+            {Object.keys(userAnswers).length}/{currentSet.questions.length}
+          </span>
+        </button>
+        <button
+          onClick={() => setMobileTab('both')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'both' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <span>{isAr ? 'كلاهما' : 'Beides'}</span>
+        </button>
+      </div>
+
       {/* Main Two-Column View */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Reading Passage Text (7 Cols) */}
-        <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 sm:p-8 space-y-6 lg:sticky lg:top-28 max-h-[82vh] overflow-y-auto">
+        <div
+          className={`lg:col-span-7 bg-white rounded-3xl border border-slate-200/80 shadow-sm p-5 sm:p-8 space-y-6 lg:sticky lg:top-28 max-h-[82vh] overflow-y-auto ${
+            mobileTab === 'questions' ? 'hidden lg:block' : 'block'
+          }`}
+        >
           <div className="flex items-center justify-between border-b border-slate-100 pb-4">
             <div className="flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-blue-600" />
@@ -258,16 +299,28 @@ export const LesenView: React.FC<LesenViewProps> = ({ language }) => {
                 {isAr ? 'نص القراءة (Lesetext)' : 'Lesetext'}
               </h3>
             </div>
-            {highlightedText && (
-              <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200 flex items-center gap-1 animate-pulse">
-                <Highlighter className="w-3.5 h-3.5" />
-                {isAr ? 'تم تظليل الدليل في النص' : 'Beweisstelle markiert'}
-              </span>
-            )}
+            <div className="flex items-center gap-2">
+              {/* Font size toggle for mobile reading */}
+              <button
+                onClick={() => setFontSize(fontSize === 'normal' ? 'large' : 'normal')}
+                className="px-2 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-bold hover:bg-slate-200"
+                title={isAr ? 'تكبير / تصغير الخط' : 'Schriftgröße umschalten'}
+              >
+                {fontSize === 'normal' ? 'A+' : 'A-'}
+              </button>
+              {highlightedText && (
+                <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200 flex items-center gap-1 animate-pulse">
+                  <Highlighter className="w-3.5 h-3.5" />
+                  {isAr ? 'تم تظليل الدليل' : 'Markiert'}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Render Text Passage */}
-          <div className="prose prose-slate max-w-none text-slate-800 text-sm md:text-base leading-relaxed tracking-normal font-sans select-text">
+          <div className={`prose prose-slate max-w-none text-slate-800 leading-relaxed tracking-normal font-sans select-text ${
+            fontSize === 'large' ? 'text-base md:text-lg leading-loose' : 'text-sm md:text-base'
+          }`}>
             {/* If Teil 3 with Ads */}
             {currentSet.teil === 3 && currentSet.ads ? (
               <div className="space-y-4">
@@ -358,7 +411,11 @@ export const LesenView: React.FC<LesenViewProps> = ({ language }) => {
         </div>
 
         {/* Right Column: Interactive Questions & Answer Sheet (5 Cols) */}
-        <div className="lg:col-span-5 space-y-5">
+        <div
+          className={`lg:col-span-5 space-y-5 ${
+            mobileTab === 'text' ? 'hidden lg:block' : 'block'
+          }`}
+        >
           {/* Evaluation Banner if submitted */}
           {submitted && (
             <div
@@ -613,6 +670,29 @@ export const LesenView: React.FC<LesenViewProps> = ({ language }) => {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Floating Mobile Quick Switcher Pill */}
+      <div className="lg:hidden fixed bottom-16 left-4 right-4 z-30 flex justify-center pointer-events-none">
+        <button
+          onClick={() => setMobileTab(mobileTab === 'text' ? 'questions' : 'text')}
+          className="pointer-events-auto shadow-2xl px-5 py-2.5 rounded-full bg-slate-900/95 hover:bg-slate-800 text-white text-xs font-bold border border-slate-700 flex items-center gap-2 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+        >
+          {mobileTab === 'text' ? (
+            <>
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <span>{isAr ? 'الانتقال للأسئلة' : 'Zu den Fragen'}</span>
+              <span className="bg-blue-600 px-2 py-0.5 rounded-full text-[10px]">
+                {Object.keys(userAnswers).length}/{currentSet.questions.length}
+              </span>
+            </>
+          ) : (
+            <>
+              <BookOpen className="w-4 h-4 text-blue-400" />
+              <span>{isAr ? 'الرجوع لنص القراءة' : 'Zum Lesetext'}</span>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );

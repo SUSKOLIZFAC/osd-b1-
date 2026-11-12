@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ActiveTab, Language } from '../types';
 import {
   BookOpen,
@@ -11,7 +11,11 @@ import {
   Languages,
   CheckCircle2,
   HelpCircle,
-  LayoutDashboard
+  LayoutDashboard,
+  Menu,
+  X,
+  TrendingUp,
+  MoreHorizontal
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -32,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenInfoModal,
 }) => {
   const isAr = language === 'ar';
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   const navItems: { id: ActiveTab; labelDe: string; labelAr: string; icon: React.ReactNode; badge?: string }[] = [
     { id: 'dashboard', labelDe: 'Dashboard', labelAr: 'لوحة التحكم', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -44,112 +49,223 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'redemittel', labelDe: 'Redemittel', labelAr: 'تعبيرات الامتحان', icon: <CheckCircle2 className="w-4 h-4" /> },
     { id: 'meine-fehler', labelDe: 'Meine Fehler & KI-Tutor', labelAr: 'أخطائي والمعلم الذكي', icon: <BrainCircuit className="w-4 h-4" />, badge: 'Auto' },
     { id: 'mock-pruefung', labelDe: 'Mock Prüfung', labelAr: 'امتحان تجريبي كامل', icon: <Award className="w-4 h-4" />, badge: 'ÖSD' },
+    { id: 'fortschritt', labelDe: 'Fortschritt', labelAr: 'التقدم والأداء', icon: <TrendingUp className="w-4 h-4" /> },
   ];
 
+  const handleSelectNav = (id: ActiveTab) => {
+    setActiveTab(id);
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-slate-900 border-b border-slate-800 text-white shadow-lg backdrop-blur-md bg-opacity-95">
-      {/* Top Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo & Brand */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('dashboard')}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/20 text-white font-extrabold text-lg tracking-wider border border-white/20">
-              ÖSD
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-lg text-white tracking-tight">ÖSD B1 HARD</span>
-                <span className="px-2 py-0.5 text-xs font-semibold rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                  ZB1
-                </span>
-                {examModeActive && (
-                  <span className="animate-pulse px-2 py-0.5 text-xs font-bold rounded-full bg-red-500/20 text-red-400 border border-red-500/30">
-                    EXAM ACTIVE
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-slate-400">
-                {isAr ? 'التحضير المكثف لامتحان أوس دي بي 1 (ألماني ↔ عربي)' : 'Zertifikat B1 Prüfungssimulation & Training (DE ↔ AR)'}
-              </p>
-            </div>
-          </div>
-
-          {/* Right Controls */}
-          <div className="flex items-center gap-3">
-            {/* Info Modal Button */}
-            <button
-              onClick={onOpenInfoModal}
-              title={isAr ? 'معلومات ونظام امتحان ÖSD B1' : 'Offizielle ÖSD B1 Prüfungsordnung & Kriterien'}
-              className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors flex items-center gap-1.5 text-sm"
+    <>
+      <header className="sticky top-0 z-40 bg-slate-900 border-b border-slate-800 text-white shadow-lg backdrop-blur-md bg-opacity-95 safe-pt">
+        {/* Main Bar */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            {/* Logo & Brand */}
+            <div
+              className="flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none"
+              onClick={() => handleSelectNav('dashboard')}
             >
-              <HelpCircle className="w-4 h-4 text-blue-400" />
-              <span className="hidden md:inline text-xs font-medium">{isAr ? 'معايير الامتحان' : 'Prüfungsregeln'}</span>
-            </button>
-
-            {/* Language Switcher */}
-            <div className="flex items-center bg-slate-800/80 p-1 rounded-xl border border-slate-700">
-              <button
-                onClick={() => setLanguage('de')}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1 ${
-                  language === 'de'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <span>DE</span>
-                <span className="text-[10px] opacity-75">Deutsch</span>
-              </button>
-              <button
-                onClick={() => setLanguage('ar')}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1 ${
-                  language === 'ar'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <Languages className="w-3.5 h-3.5" />
-                <span>العربية</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation Bar */}
-      <div className="bg-slate-950/70 border-t border-slate-800/60 overflow-x-auto scrollbar-none">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex space-x-1 sm:space-x-2 py-2 min-w-max">
-            {navItems.map((item) => {
-              const active = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all relative ${
-                    active
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-                  }`}
-                >
-                  {item.icon}
-                  <span>{isAr ? item.labelAr : item.labelDe}</span>
-                  {item.badge && (
-                    <span
-                      className={`text-[9px] px-1.5 py-0.2 rounded font-semibold ${
-                        active
-                          ? 'bg-white/20 text-white'
-                          : 'bg-blue-900/40 text-blue-300 border border-blue-500/30'
-                      }`}
-                    >
-                      {item.badge}
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/20 text-white font-black text-sm sm:text-base tracking-wider border border-white/20 shrink-0">
+                ÖSD
+              </div>
+              <div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="font-extrabold text-sm sm:text-lg text-white tracking-tight">ÖSD B1 HARD</span>
+                  <span className="px-1.5 py-0.2 sm:px-2 sm:py-0.5 text-[10px] sm:text-xs font-semibold rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                    ZB1
+                  </span>
+                  {examModeActive && (
+                    <span className="animate-pulse px-1.5 py-0.2 text-[9px] sm:text-[10px] font-bold rounded-full bg-red-500/20 text-red-400 border border-red-500/30">
+                      EXAM
                     </span>
                   )}
+                </div>
+                <p className="text-[10px] sm:text-xs text-slate-400 hidden xs:block truncate max-w-[190px] sm:max-w-none">
+                  {isAr ? 'التحضير المكثف لشهادة B1' : 'Intensivtraining Deutsch ↔ العربية'}
+                </p>
+              </div>
+            </div>
+
+            {/* Right Controls */}
+            <div className="flex items-center gap-1.5 sm:gap-3">
+              {/* Info Modal Button */}
+              <button
+                onClick={onOpenInfoModal}
+                title={isAr ? 'معلومات ونظام امتحان ÖSD B1' : 'Offizielle ÖSD B1 Prüfungsordnung & Kriterien'}
+                className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors flex items-center gap-1 text-xs"
+              >
+                <HelpCircle className="w-4 h-4 text-blue-400" />
+                <span className="hidden md:inline font-medium">{isAr ? 'معايير الامتحان' : 'Prüfungsregeln'}</span>
+              </button>
+
+              {/* Language Switcher */}
+              <div className="flex items-center bg-slate-800/90 p-0.5 sm:p-1 rounded-xl border border-slate-700">
+                <button
+                  onClick={() => setLanguage('de')}
+                  className={`px-2 py-1 text-[11px] sm:text-xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
+                    language === 'de'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <span>DE</span>
                 </button>
-              );
-            })}
-          </nav>
+                <button
+                  onClick={() => setLanguage('ar')}
+                  className={`px-2 py-1 text-[11px] sm:text-xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
+                    language === 'ar'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Languages className="w-3 h-3" />
+                  <span>عربي</span>
+                </button>
+              </div>
+
+              {/* Mobile Drawer Menu Toggle (Hamburger) */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5 text-rose-400" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </header>
+
+        {/* Desktop / Tablet Sub-navigation Bar */}
+        <div className="hidden md:block bg-slate-950/70 border-t border-slate-800/60 overflow-x-auto scrollbar-none">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex space-x-1 sm:space-x-2 py-2 min-w-max">
+              {navItems.map((item) => {
+                const active = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleSelectNav(item.id)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all relative cursor-pointer ${
+                      active
+                        ? 'bg-blue-600 text-white shadow-sm'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                    }`}
+                  >
+                    {item.icon}
+                    <span>{isAr ? item.labelAr : item.labelDe}</span>
+                    {item.badge && (
+                      <span
+                        className={`text-[9px] px-1.5 py-0.2 rounded font-semibold ${
+                          active
+                            ? 'bg-white/20 text-white'
+                            : 'bg-blue-900/40 text-blue-300 border border-blue-500/30'
+                        }`}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Drawer Sheet Menu (Overlay) */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden bg-slate-950/80 backdrop-blur-sm flex flex-col justify-end">
+          <div
+            className={`bg-slate-900 border-t border-slate-800 rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 space-y-4 shadow-2xl ${
+              isAr ? 'text-right' : 'text-left'
+            } safe-pb`}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+                  ÖSD
+                </div>
+                <span className="font-extrabold text-sm text-white">
+                  {isAr ? 'أقسام منصة الامتحان' : 'Prüfungsnavigation'}
+                </span>
+              </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 text-slate-400 hover:text-white rounded-lg"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              {navItems.map((item) => {
+                const active = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleSelectNav(item.id)}
+                    className={`p-3.5 rounded-2xl border text-xs font-bold transition-all flex flex-col gap-1.5 cursor-pointer ${
+                      active
+                        ? 'bg-blue-600 text-white border-blue-500 shadow-lg'
+                        : 'bg-slate-800/80 text-slate-300 border-slate-700/60 hover:bg-slate-800'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <span className={active ? 'text-white' : 'text-blue-400'}>{item.icon}</span>
+                      {item.badge && (
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
+                    <span className="font-bold text-[12px] mt-1">
+                      {isAr ? item.labelAr : item.labelDe}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Sticky Bottom Navigation Bar (Thumb Friendly) */}
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-slate-900/95 backdrop-blur-lg border-t border-slate-800/90 shadow-2xl safe-pb"
+        dir="ltr"
+      >
+        <div className="grid grid-cols-5 h-14">
+          {[
+            { id: 'dashboard' as const, labelDe: 'Home', labelAr: 'الرئيسية', icon: <LayoutDashboard className="w-5 h-5" /> },
+            { id: 'lesen' as const, labelDe: 'Lesen', labelAr: 'القراءة', icon: <BookOpen className="w-5 h-5" /> },
+            { id: 'hoeren' as const, labelDe: 'Hören', labelAr: 'الاستماع', icon: <Headphones className="w-5 h-5" /> },
+            { id: 'schreiben' as const, labelDe: 'Schreiben', labelAr: 'الكتابة', icon: <PenTool className="w-5 h-5" /> },
+            { id: 'sprechen' as const, labelDe: 'Sprechen', labelAr: 'المحادثة', icon: <Mic className="w-5 h-5" /> },
+          ].map((tab) => {
+            const active = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleSelectNav(tab.id)}
+                className={`flex flex-col items-center justify-center transition-all cursor-pointer relative ${
+                  active ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                {active && (
+                  <span className="absolute top-0 w-8 h-0.5 bg-blue-500 rounded-full" />
+                )}
+                {tab.icon}
+                <span className="text-[10px] mt-0.5">
+                  {isAr ? tab.labelAr : tab.labelDe}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </nav>
+    </>
   );
 };

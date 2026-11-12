@@ -56,14 +56,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className={`space-y-8 ${isAr ? 'text-right' : 'text-left'}`}>
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white p-8 md:p-10 shadow-2xl border border-indigo-800/40">
-        <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold border border-blue-400/30">
-            <GraduationCap className="w-4 h-4" />
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white p-5 sm:p-8 md:p-10 shadow-2xl border border-indigo-800/40">
+        <div className="relative z-10 max-w-3xl space-y-3.5 sm:space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-[11px] sm:text-xs font-semibold border border-blue-400/30">
+            <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>{isAr ? 'المنصة الرسمية المتقدمة لشهادة ÖSD B1' : 'Offizielle ÖSD Zertifikat B1 Intensivvorbereitung'}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-snug sm:leading-tight">
             {isAr ? (
               <>
                 اجتز امتحان <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-200">ÖSD B1</span> بتفوق وثقة
@@ -75,16 +75,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
             )}
           </h1>
 
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+          <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed">
             {isAr
               ? 'نظام تدريب ذكي بمستوى B1 HARD مبني بدقة على أحدث كتب ونماذج الامتحانات المعتمدة (Zertifikat B1 neu, Arena B1, So geht\'s noch besser). تدرب على القراءة، الاستماع مع صوتيات ناطقة، تصحيح الكتابة بالذكاء الاصطناعي، ومحاكاة المحادثة الشفوية مع شرح كامل بالعربية.'
               : 'Intensives B1-Hard Training auf Basis der vier Standard-Vorbereitungsbücher (Zertifikat B1 neu, Arena B1, So geht\'s noch besser). Alle 4 Prüfungsmodule mit Audio, KI-Schreibkorrektur nach ÖSD-Kriterien und zweisprachigen Erklärungen (DE ↔ AR).'}
           </p>
 
-          <div className="flex flex-wrap gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3 pt-2">
             <button
               onClick={() => setActiveTab('mock-pruefung')}
-              className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2 group cursor-pointer"
+              className="w-full sm:w-auto justify-center px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2 group cursor-pointer"
             >
               <Award className="w-4 h-4" />
               <span>{isAr ? 'بدء امتحان تجريبي كامل (Mock Exam)' : 'Vollständige Prüfungssimulation starten'}</span>
@@ -92,7 +92,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('lesen')}
-              className="px-5 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 font-semibold text-sm border border-slate-700 transition-all flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-5 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 font-semibold text-xs sm:text-sm border border-slate-700 transition-all flex items-center gap-2 cursor-pointer"
             >
               <BookOpen className="w-4 h-4 text-blue-400" />
               <span>{isAr ? 'تدريب القراءة (Lesen)' : 'Leseverstehen üben'}</span>

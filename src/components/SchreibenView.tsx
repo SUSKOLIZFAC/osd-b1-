@@ -43,6 +43,7 @@ export const SchreibenView: React.FC<SchreibenViewProps> = ({ language }) => {
   const [evalError, setEvalError] = useState<string | null>(null);
   const [draftSavedToast, setDraftSavedToast] = useState<boolean>(false);
   const [showModelAnswer, setShowModelAnswer] = useState<boolean>(false);
+  const [mobileTab, setMobileTab] = useState<'prompt' | 'editor' | 'both'>('editor');
 
   // Load saved draft and reset on task change
   useEffect(() => {
@@ -231,11 +232,48 @@ export const SchreibenView: React.FC<SchreibenViewProps> = ({ language }) => {
         </div>
       )}
 
+      {/* Mobile-only Segmented Switcher */}
+      <div className="lg:hidden flex items-center bg-slate-200/80 p-1 rounded-2xl text-xs font-bold w-full shadow-inner">
+        <button
+          onClick={() => setMobileTab('editor')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'editor' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <PenTool className="w-3.5 h-3.5" />
+          <span>{isAr ? 'محرر الكتابة' : 'Schreibfeld'}</span>
+          <span className="px-1.5 py-0.2 rounded-full bg-slate-100 text-[10px]">
+            {wordCount} W.
+          </span>
+        </button>
+        <button
+          onClick={() => setMobileTab('prompt')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'prompt' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <BookOpen className="w-3.5 h-3.5" />
+          <span>{isAr ? 'نص المهمة والنقاط' : 'Aufgabe & Leitpunkte'}</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('both')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'both' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <span>{isAr ? 'كلاهما' : 'Beides'}</span>
+        </button>
+      </div>
+
       {/* Main Two-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Task Prompt & Leitpunkte (5 Cols) */}
-        <div className="lg:col-span-5 space-y-4">
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-sm space-y-4">
+        <div
+          className={`lg:col-span-5 space-y-4 ${
+            mobileTab === 'editor' ? 'hidden lg:block' : 'block'
+          }`}
+        >
+          <div className="p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/80 shadow-sm space-y-4">
             <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
               <span className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-black text-xs">
                 {currentTask.aufgabe}
@@ -344,7 +382,11 @@ export const SchreibenView: React.FC<SchreibenViewProps> = ({ language }) => {
         </div>
 
         {/* Right Column: Writing Textarea Editor & AI Evaluation Panel (7 Cols) */}
-        <div className="lg:col-span-7 space-y-6">
+        <div
+          className={`lg:col-span-7 space-y-6 ${
+            mobileTab === 'prompt' ? 'hidden lg:block' : 'block'
+          }`}
+        >
           {/* Textarea Editor Card */}
           <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-sm space-y-4">
             <div className="flex items-center justify-between">
@@ -512,6 +554,29 @@ export const SchreibenView: React.FC<SchreibenViewProps> = ({ language }) => {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Floating Mobile Switcher Pill */}
+      <div className="lg:hidden fixed bottom-16 left-4 right-4 z-30 flex justify-center pointer-events-none">
+        <button
+          onClick={() => setMobileTab(mobileTab === 'editor' ? 'prompt' : 'editor')}
+          className="pointer-events-auto shadow-2xl px-5 py-2.5 rounded-full bg-slate-900/95 hover:bg-slate-800 text-white text-xs font-bold border border-slate-700 flex items-center gap-2 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+        >
+          {mobileTab === 'editor' ? (
+            <>
+              <BookOpen className="w-4 h-4 text-blue-400" />
+              <span>{isAr ? 'عرض نص المهمة والنقاط' : 'Aufgabe & Punkte anzeigen'}</span>
+            </>
+          ) : (
+            <>
+              <PenTool className="w-4 h-4 text-emerald-400" />
+              <span>{isAr ? 'الرجوع لمحرر الكتابة' : 'Zum Schreibfeld'}</span>
+              <span className="bg-blue-600 px-2 py-0.5 rounded-full text-[10px]">
+                {wordCount} W.
+              </span>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );

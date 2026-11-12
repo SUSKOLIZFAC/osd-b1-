@@ -59,6 +59,7 @@ export const SprechenView: React.FC<SprechenViewProps> = ({ language }) => {
   // Preparation / Speaking Timer
   const [prepTimeLeft, setPrepTimeLeft] = useState<number>(90); // 1.5 min prep
   const [prepTimerRunning, setPrepTimerRunning] = useState<boolean>(false);
+  const [mobileTab, setMobileTab] = useState<'prompt' | 'mic' | 'both'>('mic');
 
   useEffect(() => {
     // Reset on switch
@@ -257,11 +258,45 @@ export const SprechenView: React.FC<SprechenViewProps> = ({ language }) => {
         </div>
       </div>
 
+      {/* Mobile-only Segmented Switcher */}
+      <div className="lg:hidden flex items-center bg-slate-200/80 p-1 rounded-2xl text-xs font-bold w-full shadow-inner">
+        <button
+          onClick={() => setMobileTab('mic')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'mic' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Mic className="w-3.5 h-3.5 text-rose-500" />
+          <span>{isAr ? 'التسجيل والشريك' : 'Aufnahme & Partner'}</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('prompt')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'prompt' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Layers className="w-3.5 h-3.5 text-blue-500" />
+          <span>{activeTeil === 2 ? (isAr ? 'الشرائح الـ 5' : 'Folien') : (isAr ? 'النقاط' : 'Leitpunkte')}</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('both')}
+          className={`flex-1 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            mobileTab === 'both' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <span>{isAr ? 'كلاهما' : 'Beides'}</span>
+        </button>
+      </div>
+
       {/* Main Two-Column View */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Speaking Prompt & Visual Slides Deck (6 Cols) */}
-        <div className="lg:col-span-6 space-y-4">
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-sm space-y-4">
+        <div
+          className={`lg:col-span-6 space-y-4 ${
+            mobileTab === 'mic' ? 'hidden lg:block' : 'block'
+          }`}
+        >
+          <div className="p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/80 shadow-sm space-y-4">
             <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
               <span className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-black text-xs">
                 {currentScenario.teil}
@@ -367,7 +402,11 @@ export const SprechenView: React.FC<SprechenViewProps> = ({ language }) => {
         </div>
 
         {/* Right Column: Microphone Recording, Interactive Partner & AI Evaluation (6 Cols) */}
-        <div className="lg:col-span-6 space-y-5">
+        <div
+          className={`lg:col-span-6 space-y-5 ${
+            mobileTab === 'prompt' ? 'hidden lg:block' : 'block'
+          }`}
+        >
           {/* Microphone & Recording Card */}
           <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-sm space-y-4">
             <div className="flex items-center justify-between">
@@ -582,6 +621,26 @@ export const SprechenView: React.FC<SprechenViewProps> = ({ language }) => {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Floating Mobile Switcher Pill */}
+      <div className="lg:hidden fixed bottom-16 left-4 right-4 z-30 flex justify-center pointer-events-none">
+        <button
+          onClick={() => setMobileTab(mobileTab === 'mic' ? 'prompt' : 'mic')}
+          className="pointer-events-auto shadow-2xl px-5 py-2.5 rounded-full bg-slate-900/95 hover:bg-slate-800 text-white text-xs font-bold border border-slate-700 flex items-center gap-2 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+        >
+          {mobileTab === 'mic' ? (
+            <>
+              <Layers className="w-4 h-4 text-blue-400" />
+              <span>{activeTeil === 2 ? (isAr ? 'عرض الشرائح' : 'Folien anzeigen') : (isAr ? 'عرض النقاط' : 'Punkte anzeigen')}</span>
+            </>
+          ) : (
+            <>
+              <Mic className="w-4 h-4 text-rose-400" />
+              <span>{isAr ? 'الرجوع للميكروفون' : 'Zum Mikrofon'}</span>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
