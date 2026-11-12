@@ -62,47 +62,49 @@ export const Header: React.FC<HeaderProps> = ({
       <header className="sticky top-0 z-40 bg-slate-900 border-b border-slate-800 text-white shadow-lg backdrop-blur-md bg-opacity-95 safe-pt">
         {/* Main Bar */}
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16">
+          <div className="flex items-center justify-between h-14 sm:h-16 gap-2">
             {/* Logo & Brand */}
             <div
-              className="flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none"
+              className="flex items-center gap-2 sm:gap-2.5 cursor-pointer select-none min-w-0 shrink"
               onClick={() => handleSelectNav('dashboard')}
             >
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/20 text-white font-black text-sm sm:text-base tracking-wider border border-white/20 shrink-0">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/20 text-white font-black text-xs sm:text-sm tracking-wider border border-white/20 shrink-0">
                 ÖSD
               </div>
-              <div>
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="font-extrabold text-sm sm:text-lg text-white tracking-tight">ÖSD B1 HARD</span>
-                  <span className="px-1.5 py-0.2 sm:px-2 sm:py-0.5 text-[10px] sm:text-xs font-semibold rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-nowrap">
+                  <span className="font-extrabold text-sm sm:text-base md:text-lg text-white tracking-tight whitespace-nowrap">
+                    ÖSD B1 HARD
+                  </span>
+                  <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold rounded bg-blue-500/20 text-blue-300 border border-blue-400/30 shrink-0 whitespace-nowrap leading-none">
                     ZB1
                   </span>
                   {examModeActive && (
-                    <span className="animate-pulse px-1.5 py-0.2 text-[9px] sm:text-[10px] font-bold rounded-full bg-red-500/20 text-red-400 border border-red-500/30">
+                    <span className="animate-pulse px-1.5 py-0.5 text-[9px] font-bold rounded-full bg-red-500/20 text-red-400 border border-red-500/30 shrink-0 leading-none">
                       EXAM
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] sm:text-xs text-slate-400 hidden xs:block truncate max-w-[190px] sm:max-w-none">
+                <p className="text-[10px] text-slate-400 hidden sm:block truncate max-w-[200px] md:max-w-none">
                   {isAr ? 'التحضير المكثف لشهادة B1' : 'Intensivtraining Deutsch ↔ العربية'}
                 </p>
               </div>
             </div>
 
             {/* Right Controls */}
-            <div className="flex items-center gap-1.5 sm:gap-3">
+            <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
               {/* Info Modal Button */}
               <button
                 onClick={onOpenInfoModal}
                 title={isAr ? 'معلومات ونظام امتحان ÖSD B1' : 'Offizielle ÖSD B1 Prüfungsordnung & Kriterien'}
-                className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors flex items-center gap-1 text-xs"
+                className="p-1.5 sm:p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors flex items-center gap-1 text-xs"
               >
-                <HelpCircle className="w-4 h-4 text-blue-400" />
-                <span className="hidden md:inline font-medium">{isAr ? 'معايير الامتحان' : 'Prüfungsregeln'}</span>
+                <HelpCircle className="w-4 h-4 text-blue-400 shrink-0" />
+                <span className="hidden lg:inline font-medium">{isAr ? 'معايير الامتحان' : 'Prüfungsregeln'}</span>
               </button>
 
               {/* Language Switcher */}
-              <div className="flex items-center bg-slate-800/90 p-0.5 sm:p-1 rounded-xl border border-slate-700">
+              <div className="flex items-center bg-slate-800/90 p-0.5 rounded-xl border border-slate-700 shrink-0">
                 <button
                   onClick={() => setLanguage('de')}
                   className={`px-2 py-1 text-[11px] sm:text-xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
@@ -129,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({
               {/* Mobile Drawer Menu Toggle (Hamburger) */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+                className="md:hidden p-1.5 sm:p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5 text-rose-400" /> : <Menu className="w-5 h-5" />}
